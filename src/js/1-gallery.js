@@ -75,13 +75,12 @@ function createMarkup(arr) {
     .map(
       ({ original, preview, description }) => `
             <li class="gallery-item">
-	            <a class="gallery-link" href="${original}"        
-                    onclick="event.preventDefault()">
-		        <img 
+	            <a class="gallery-link" href="${original}">
+		              <img 
                     class="gallery-image" 
                     src="${preview}" 
                     alt="${description}" 
-                    />
+                  />
 	            </a>
             </li>
         `

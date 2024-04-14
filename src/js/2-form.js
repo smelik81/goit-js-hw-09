@@ -6,8 +6,8 @@ const textareaForm = document.querySelector('textarea');
 feedbackForm.addEventListener('input', event => {
   if (event.target === inputForm || event.target === textareaForm) {
     const email = inputForm.value.trim();
-    const msg = textareaForm.value.trim();
-    const objInfo = { email, msg };
+    const message = textareaForm.value.trim();
+    const objInfo = { email, message };
 
     localStorage.setItem(LS_KEY, JSON.stringify(objInfo));
   }
@@ -15,9 +15,14 @@ feedbackForm.addEventListener('input', event => {
 
 const storageFormGetData = localStorage.getItem(LS_KEY);
 if (storageFormGetData) {
-  const { email, msg } = JSON.parse(storageFormGetData);
-  inputForm.value = email || '';
-  textareaForm.value = msg || '';
+  const { email, message } = JSON.parse(storageFormGetData);
+const trimmedEmail = email.trim();
+const trimmedMessage = message.trim();
+
+  if (trimmedEmail || trimmedMessage) {
+    inputForm.value = email;
+    textareaForm.value = message;
+  }
 }
 
 feedbackForm.addEventListener('submit', clearForm);
@@ -26,11 +31,11 @@ function clearForm(event) {
 
   const element = event.target.elements;
   const email = element.email.value.trim();
-  const msg = element.message.value.trim();
-  const objInfo = { email, msg };
+  const message = element.message.value.trim();
+  const objInfo = { email, message };
 
-  if (email && msg) {
-    console.log({ email, msg });
+  if (email && message) {
+    console.log({ email, message });
   } else {
     alert('заповніть будь ласка поле');
   }
