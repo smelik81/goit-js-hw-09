@@ -16,13 +16,9 @@ feedbackForm.addEventListener('input', event => {
 const storageFormGetData = localStorage.getItem(LS_KEY);
 if (storageFormGetData) {
   const { email, message } = JSON.parse(storageFormGetData);
-const trimmedEmail = email.trim();
-const trimmedMessage = message.trim();
 
-  if (trimmedEmail || trimmedMessage) {
-    inputForm.value = email;
-    textareaForm.value = message;
-  }
+  inputForm.value = email;
+  textareaForm.value = message;
 }
 
 feedbackForm.addEventListener('submit', clearForm);
