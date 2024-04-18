@@ -1,3 +1,6 @@
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
+
 const LS_KEY = 'feedback-form-state';
 const feedbackForm = document.querySelector('.feedback-form');
 const inputForm = document.querySelector('input[type="email"]');
@@ -8,10 +11,10 @@ feedbackForm.addEventListener('input', event => {
     const email = inputForm.value.trim();
     const message = textareaForm.value.trim();
 
-    if (email !== "" && message !== "") {
+    if (email !== '' || message !== '') {
       const objInfo = { email, message };
       localStorage.setItem(LS_KEY, JSON.stringify(objInfo));
-    } 
+    }
   }
 });
 
@@ -19,11 +22,11 @@ const storageFormGetData = localStorage.getItem(LS_KEY);
 if (storageFormGetData) {
   const { email, message } = JSON.parse(storageFormGetData);
 
-  if (email !== "" && message !== "") {
-    inputForm.value = email.trim();
-    textareaForm.value = message.trim();
+  if (email !== '' || message !== '') {
+    inputForm.value = email;
+    textareaForm.value = message;
   }
-};
+}
 
 feedbackForm.addEventListener('submit', clearForm);
 function clearForm(event) {
@@ -37,10 +40,18 @@ function clearForm(event) {
   if (email && message) {
     console.log({ email, message });
   } else {
-    alert('заповніть будь ласка поле');
+    iziToast.error({
+      title: 'Error',
+      message: "Заповніть будь ласка обов'язкове поле",
+      position: 'topRight',
+      transitionIn: 'bounceInUp',
+      messageColor: 'white',
+      timeout: 3000,
+    });
   }
 
   event.currentTarget.reset();
   localStorage.removeItem(LS_KEY);
-}
+};
+
 
