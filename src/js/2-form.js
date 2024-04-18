@@ -7,9 +7,11 @@ feedbackForm.addEventListener('input', event => {
   if (event.target === inputForm || event.target === textareaForm) {
     const email = inputForm.value.trim();
     const message = textareaForm.value.trim();
-    const objInfo = { email, message };
 
-    localStorage.setItem(LS_KEY, JSON.stringify(objInfo));
+    if (email !== "" && message !== "") {
+      const objInfo = { email, message };
+      localStorage.setItem(LS_KEY, JSON.stringify(objInfo));
+    } 
   }
 });
 
@@ -17,9 +19,11 @@ const storageFormGetData = localStorage.getItem(LS_KEY);
 if (storageFormGetData) {
   const { email, message } = JSON.parse(storageFormGetData);
 
-  inputForm.value = email;
-  textareaForm.value = message;
-}
+  if (email !== "" && message !== "") {
+    inputForm.value = email.trim();
+    textareaForm.value = message.trim();
+  }
+};
 
 feedbackForm.addEventListener('submit', clearForm);
 function clearForm(event) {
